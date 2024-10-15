@@ -1,39 +1,71 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.metrics import mean_squared_error, r2_score
+import joblib
 
-# Load the dataset with encoding specified
-df = pd.read_csv('../data/HouseListings-Top45Cities-10292023-kaggle.csv', encoding='ISO-8859-1')
+# Load the dataset
+df = pd.read_csv('../data/price_forecast.csv')
 
-# Filter the data to include only rows for Toronto
-toronto_df = df[df['City'] == 'Toronto']
+# Display first few rows to inspect the dataset
+print("Initial Dataset Head:")
+print(df.head())
 
-# Display the first few rows of Toronto data to check the data structure
-print(toronto_df.head())
+# Check for missing values
+print("\nMissing values in each column:")
+print(df.isnull().sum())
 
-# Check for missing values in the Toronto data
-print("\nMissing values in each column (Toronto rows only):")
-print(toronto_df.isnull().sum())
+# Handle missing values if necessary (assuming there are no missing values in 'average_price')
+df = df.dropna(subset=['average_price'])
 
-# Fill missing values in 'Number_Beds' and 'Number_Baths' with the median
-toronto_df['Number_Beds'].fillna(toronto_df['Number_Beds'].median(), inplace=True)
-toronto_df['Number_Baths'].fillna(toronto_df['Number_Baths'].median(), inplace=True)
+# Convert '_date' to datetime format
+df['_date'] = pd.to_datetime(df['_date'].str.replace('Q', '-'), format='%Y-%m')
 
-# Drop rows where 'Price' is missing
-toronto_df = toronto_df.dropna(subset=['Price'])
+# Create time-based features: year and quarter
+df['year'] = df['_date'].dt.year
+df['quarter'] = df['_date'].dt.quarter
 
-# Check for outliers in 'Price'
-print("\nSummary statistics for Price (Toronto rows only):")
-print(toronto_df['Price'].describe())
+# Drop the original '_date' column as it has been broken into 'year' and 'quarter'
+df = df.drop(columns=['_date'])
 
-# Optionally, remove outliers if Price > $5 million (adjust threshold as needed)
-toronto_df = toronto_df[toronto_df['Price'] < 5000000]
+# Encoding categorical features (community and building_type) using one-hot encoding
+df_encoded = pd.get_dummies(df, columns=['community', 'building_type'], drop_first=True)
 
+# Define the features (X) and target (y)
+X = df_encoded.drop(columns=['average_price'])  # Features (all except average price)
+y = df_encoded['average_price']  # Target variable
 
-# Plotting a boxplot to visually inspect price outliers
-plt.boxplot(toronto_df['Price'])
-plt.title('Boxplot of House Prices in Toronto')
-plt.show()
+# Split the dataset into training and testing sets (80% train, 20% test)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Save the cleaned Toronto data to a new CSV file
-toronto_df.to_csv('cleaned_toronto_real_estate.csv', index=False)
-print("Cleaned Toronto data saved as 'cleaned_toronto_real_estate.csv'.")
+# Model building: You can choose between Linear Regression or Random Forest
+# 1. Linear Regression model
+linear_model = LinearRegression()
+linear_model.fit(X_train, y_train)
+
+# 2. Random Forest model (alternative)
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+
+# Predict and evaluate the Linear Regression model
+y_pred_linear = linear_model.predict(X_test)
+print("\nLinear Regression Model Performance:")
+print(f"Mean Squared Error (MSE): {mean_squared_error(y_test, y_pred_linear)}")
+print(f"R-squared Score: {r2_score(y_test, y_pred_linear)}")
+
+# Predict and evaluate the Random Forest model
+y_pred_rf = rf_model.predict(X_test)
+print("\nRandom Forest Model Performance:")
+print(f"Mean Squared Error (MSE): {mean_squared_error(y_test, y_pred_rf)}")
+print(f"R-squared Score: {r2_score(y_test, y_pred_rf)}")
+
+# Save the Random Forest model (or Linear Regression) as a joblib file for future use in the Flask API
+joblib.dump(rf_model, 'housing_price_predictor_rf_model.pkl')
+print("Model saved as 'housing_price_predictor_rf_model.pkl'.")
+
+# Optional: Save the cleaned and encoded data for future reference
+df_encoded.to_csv('cleaned_toronto_housing_prices_encoded.csv', index=False)
+print("Cleaned and encoded data saved as 'cleaned_toronto_housing_prices_encoded.csv'.")

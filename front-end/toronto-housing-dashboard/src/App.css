@@ -1,0 +1,157 @@
+/* General layout for the app */
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the layout takes at least the full height of the viewport */
+  font-family: 'Arial', sans-serif;
+  width: 100vw;
+}
+
+/* Header with the title */
+.header {
+  background-color: #282c34;
+  color: white;
+  padding: 0px;
+  padding-left: 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Main content: Map on the left and info panel on the right */
+.content {
+  display: flex;
+  flex: 1; /* Allow this to grow and fill space */
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+/* Container for the map on the left */
+.map-container {
+  flex: 3;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #ccc;
+}
+
+/* Info panel on the right */
+.info-panel {
+  flex: 1;
+  background-color: #f8f9fa;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-y: auto; /* Makes it scrollable */
+  scrollbar-width: thin;
+  scrollbar-color: #ccc #f8f9fa;
+}
+
+/* Styling for info titles (like housing types) */
+.info-panel h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Styling for each paragraph */
+.info-panel p {
+  font-size: 0.9rem;
+  color: #555;
+  margin: 5px 0;
+}
+
+/* Separator between housing types */
+.info-panel .separator {
+  border-bottom: 1px solid #ddd;
+  margin: 15px 0;
+  width: 100%;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.85rem;
+  margin-top: auto; /* Ensures footer stays at the end of the content */
+}
+
+.footer a {
+  color: #61dafb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* A little hover effect for the footer link */
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries for Responsive Design */
+
+/* Adjustments for tablets (768px and below) */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .map-container {
+    flex: 1;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .info-panel {
+    flex: 1;
+  }
+
+  .header {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  .map-container label {
+    font-size: 0.9rem;
+  }
+
+  .info-panel h3 {
+    font-size: 1rem;
+  }
+
+  .info-panel p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Adjustments for phones (480px and below) */
+@media (max-width: 480px) {
+  .header {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .map-container label {
+    font-size: 0.85rem;
+  }
+
+  .info-panel h3 {
+    font-size: 0.95rem;
+  }
+
+  .info-panel p {
+    font-size: 0.8rem;
+  }
+
+  .info-panel {
+    padding: 15px;
+  }
+
+  .footer {
+    font-size: 0.75rem;
+  }
+}
