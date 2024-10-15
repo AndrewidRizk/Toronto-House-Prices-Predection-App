@@ -13,6 +13,7 @@ instance/
 *.log
 *.sqlite3
 *.db
+*.csv
 
 # Ignore Jupyter Notebook checkpoints
 .ipynb_checkpoints/
