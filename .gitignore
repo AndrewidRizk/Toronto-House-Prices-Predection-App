@@ -1,0 +1,35 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+pred/  # Add this if your virtual environment is named "pred"
+
+# Flask logs and other unnecessary files
+instance/
+*.log
+*.sqlite3
+*.db
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Python-specific
+*.env
+*.lock
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE-specific (e.g., for VS Code, PyCharm)
+.vscode/
+.idea/
+
+# OS-specific files
+*.swp  # Vim swap files
