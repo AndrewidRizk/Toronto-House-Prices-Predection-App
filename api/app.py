@@ -11,6 +11,12 @@ model = joblib.load('../data/housing_price_predictor_rf_model.pkl')
 feature_columns = joblib.load('../data/model_feature_columns.pkl')
 df = pd.read_csv('../data/price_forecast.csv')  # Replace with your actual file path
 
+# Index route to display a welcome message
+@app.route('/')
+def index():
+    return "<h1>Welcome to the Toronto Housing API</h1><p>Use /community-data for housing data.</p>"
+
+
 def encode_input(data):
     # Build a DataFrame for the input
     df = pd.DataFrame([data])
