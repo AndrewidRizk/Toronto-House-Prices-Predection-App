@@ -4,3 +4,5 @@ joblib==1.2.0
 pandas==1.5.3
 werkzeug==2.0.3 
 setuptools==58.0.4  # Add this line to ensure distutils is available
+scikit-learn==1.1.2
+
