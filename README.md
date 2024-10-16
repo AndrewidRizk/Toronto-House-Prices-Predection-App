@@ -1,4 +1,4 @@
-### Toronto Housing Prices Prediction App
+## Toronto Housing Prices Prediction App
 This repository contains the Toronto Housing Prices Prediction App, a Flask-based web application that allows users to explore historical housing prices in various neighborhoods of Toronto and predict future prices based on different building types. It uses machine learning models trained on historical data to provide insights into housing trends and forecasts.
 
 ## 🔍 What is the App?
