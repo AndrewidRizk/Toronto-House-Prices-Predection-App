@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 
+
 // Add Leaflet's default marker icon manually
 import L from 'leaflet';
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
@@ -161,7 +162,8 @@ const Map = () => {
 
     const fetchCommunityData = async (communityName) => {
         try {
-            const response = await axios.post('https://192.168.2.178:5001/community-data', {
+            
+            const response = await axios.post('https://bf51-74-12-132-65.ngrok-free.app/community-data', {
                 community: communityName,
             });
             setHousingData(response.data);
