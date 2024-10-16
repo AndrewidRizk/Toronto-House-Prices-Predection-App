@@ -17,7 +17,7 @@ The historical data used to train the model comes from a publicly available Toro
 The dataset was carefully cleaned and processed to remove outliers and fill in missing values. It was then used to train a regression model to predict housing prices based on location and building type. The cleaned dataset can be found here.
 
 ## 📈 Model Used
-To predict the housing prices, we used a Random Forest Regressor model, a robust ensemble learning technique that combines multiple decision trees. This model was chosen due to its ability to handle complex datasets and its flexibility in capturing nonlinear relationships between features.
+To predict the housing prices, I used a Random Forest Regressor model, a robust ensemble learning technique that combines multiple decision trees. This model was chosen due to its ability to handle complex datasets and its flexibility in capturing nonlinear relationships between features.
 
 Key Features of the Model:
 - Features Used:
