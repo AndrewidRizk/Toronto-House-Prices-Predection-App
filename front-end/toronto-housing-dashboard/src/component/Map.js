@@ -161,7 +161,7 @@ const Map = () => {
 
     const fetchCommunityData = async (communityName) => {
         try {
-            const response = await axios.post('https://toronto-house-prices-predection-app.vercel.app:5000/community-data', {
+            const response = await axios.post('http://192.168.2.178:5001/community-data', {
                 community: communityName,
             });
             setHousingData(response.data);
