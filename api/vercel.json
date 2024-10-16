@@ -1,12 +1,9 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "api/app.py", "use": "@vercel/python" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/api/app.py" }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.9"
-  }
-}
+    "version": 2,
+    "builds": [
+      { "src": "index.py", "use": "@vercel/python"}
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/" } 
+    ]
+  } 
