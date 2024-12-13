@@ -163,7 +163,7 @@ const Map = () => {
     const fetchCommunityData = async (communityName) => {
         try {
             
-            const response = await axios.post('https://57b8-70-50-135-241.ngrok-free.app/community-data', {
+            const response = await axios.post('https://755e-70-50-135-241.ngrok-free.app/community-data', {
                 community: communityName,
             });
             setHousingData(response.data);
