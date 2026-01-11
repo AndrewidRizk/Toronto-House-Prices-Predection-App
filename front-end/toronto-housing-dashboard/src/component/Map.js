@@ -163,7 +163,7 @@ const Map = () => {
     const fetchCommunityData = async (communityName) => {
         try {
             
-            const response = await axios.post('toronto-pred-api.duckdns.org/community-data', {
+            const response = await axios.post('https://toronto-pred-api.duckdns.org/community-data', {
                 community: communityName,
             });
             setHousingData(response.data);
